@@ -23,9 +23,7 @@ attempts = 6
 secretNumber = random.randint(1, 20)
 
 def guessFunc():
-    global text, attempts
-    secretNumber = random.randint(1, 20)
-    
+    global text, attempts, secretNumber
     guess = int(entry.get())
     
     attempts -= 1
@@ -316,20 +314,20 @@ def GuessTheNumber():
 
 # First Window
 window1 = tk.Tk()
-window1.geometry('600x250')
+window1.geometry('400x400')
 window1.title('Welcome to my Final Project')
 
 
 ticTacToe_img = Image.open("TicTacToe.png")
-resized = ticTacToe_img.resize((50,50), Image.ANTIALIAS)
+resized = ticTacToe_img.resize((75,75), Image.ANTIALIAS)
 ticTacToe_img_resized = ImageTk.PhotoImage(resized)
 
 math_img = Image.open("MathCalculations.png")
-math_resized = math_img.resize((50,50), Image.ANTIALIAS)
+math_resized = math_img.resize((75,75), Image.ANTIALIAS)
 math_img_resized = ImageTk.PhotoImage(math_resized)
 
 guess_img = Image.open("GuessTheNumber.png")
-guess_resized = guess_img.resize((50,50), Image.ANTIALIAS)
+guess_resized = guess_img.resize((75,75), Image.ANTIALIAS)
 guess_img_resized = ImageTk.PhotoImage(guess_resized)
 
 label = Label(window1, text='Please select a program to run', font=('Times New Roman Bold', 15))
