@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 def conversions():
     mile_input = entry_int.get()
     kilometer_output = mile_input * 1.61
-    output_string.set(round(kilometer_output, 2))
+    return f'{output_string.set(round(kilometer_output, 2))} Kilometers'
     
 def conversions1():
     celsius_input = entry_int.get()
@@ -22,23 +22,26 @@ def conversions2():
 def MileConverter():
     global frame, entry, label, entry_int, button, output_label, output_string
     window2 = tk.Toplevel()
-    window2.geometry('300x200')
+    window2.geometry('300x300')
     window2.title('Converting Kilometers and Miles')
     
     label = Label(window2, text='Converting Miles to Kilometers', font=('Times New Roman Bold', 15))
-    label.place(x=0, y=50)
+    label.pack()
+    
+    frame = Frame(window2)
+    frame.pack()
     
     entry_int = tk.IntVar()
-    entry = Entry(window2, textvariable= entry_int)
-    button = Button(window2, text='Convert', command=conversions)
-    button_quit = Button(window2, text='Exit Program', command=quit)
-    entry.place(x=50, y=100)
-    button.place(x=155, y=100)
-    button_quit.place(x=100, y=145)
-    
+    entry = Entry(frame, textvariable= entry_int)
+    button = Button(frame, text='Convert', command=conversions)
+    button_quit = Button(frame, text='Exit Program', command=quit)
     output_string = tk.StringVar()
-    output_label = Label(window2, text='Output', font=('Times New Roman Bold', 12), textvariable= output_string)
-    output_label.grid()
+    output_label = Label(window2, text='Output', font=('Times New Roman Bold', 12), textvariable= output_string, bg='blue', fg='yellow')
+    entry.pack(pady=5)
+    button.pack(pady=5)
+    output_label.pack(pady=5)
+    button_quit.pack(pady=5)
+    
     
 def CelsiusConverter():
     global frame, entry, label, entry_int, button, output_label, output_string1
