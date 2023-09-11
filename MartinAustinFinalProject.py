@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-from PIL import Image, ImageTk
+from PIL import ImageTk, Image
 
 def conversions():
     mile_input = entry_int.get()
@@ -253,6 +253,9 @@ window1.geometry('600x250')
 window1.title('Welcome to my Final Project')
 
 
+ticTacToe_img = Image.open("TicTacToe.png")
+resized = ticTacToe_img.resize((50,50), Image.ANTIALIAS)
+ticTacToe_img_resized = ImageTk.PhotoImage(resized)
 
 label = Label(window1, text='Please select a program to run', font=('Times New Roman Bold', 15))
 label.place(x=165, y=50) 
@@ -260,7 +263,7 @@ label.place(x=165, y=50)
 button1 = Button(window1, text='Miles to Kilometers', command= MileConverter)
 button2 = Button(window1, text='Converting Temperature', command= CelsiusConverter)
 button3 = Button(window1, text='Converting Speed', command= SecondsConverter)
-button4 = Button(window1, text='Tic Tac toe', command= TicTacToe)
+button4 = Button(window1, command= TicTacToe, image=ticTacToe_img_resized)
 button1.place(x=125, y=100)
 button2.place(x=325, y=100)
 button3.place(x=130, y=150)
