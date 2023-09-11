@@ -1,3 +1,4 @@
+import random
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
@@ -17,7 +18,30 @@ def conversions2():
     day_input = entry_int.get()
     seconds_output = day_input*86400
     output_string2.set(round(seconds_output, 2))
+
+attempts = 6
+secretNumber = random.randint(1, 20)
+
+def guessFunc():
+    global text, attempts
+    secretNumber = random.randint(1, 20)
     
+    guess = int(entry.get())
+    
+    attempts -= 1
+    
+    if guess == secretNumber:
+        text.set("Congrats! You guessed it!")
+        button.pack_forget()
+    elif attempts == 0:
+        text.set("You ran out of guesses")
+        button.pack_forget()
+    elif guess < secretNumber:
+        text.set(f'Incorrect! You now have {attempts} guesses remaining. Guess a higher number!!')
+    elif guess > secretNumber:
+        text.set(f'Incorrect! You now have {attempts} guesses remaining. Guess a lower number!!')
+    
+    return
     
 def MileConverter():
     global frame, entry, label, entry_int, button, output_label, output_string
@@ -247,6 +271,49 @@ def TicTacToe():
     b7.grid(row=2, column=0)
     b8.grid(row=2, column=1)
     b9.grid(row=2, column=2)
+
+
+def mathCalcs():
+    math = tk.Toplevel()
+    math.geometry('600x250')
+    math.title('Math Calculations')
+
+    label = Label(math, text='Please select a Math calculation you would like to compute!')
+
+    math1 = Button(math, text='Miles to Kilometers', command= MileConverter)
+    math2 = Button(math, text='Converting Temperature', command= CelsiusConverter)
+    math3 = Button(math, text='Converting Speed', command= SecondsConverter)
+    label.pack()
+    math1.pack(pady=5)
+    math2.pack(pady=5)
+    math3.pack(pady=5)
+
+
+def GuessTheNumber():
+    global frame, entry, label, entry_int, button, output_label, text
+    window3 = tk.Toplevel()
+    window3.geometry('500x250')
+    window3.title('Converting Temperatures')
+    
+    label = Label(window3, text='Guess a number between 1 and 20', font=('Times New Roman Italic', 20))
+    label.pack(side=TOP, pady=10)
+    
+    frame = Frame(window3)
+    frame.pack()
+    
+    entry_int = tk.IntVar()
+    entry = Entry(frame, textvariable= entry_int)
+    button = Button(frame, text='Check', pady= 5, command=guessFunc)
+    button_quit = Button(frame, text='Exit Program', command=quit)
+    entry.pack(side=TOP, pady=5)
+    button.pack(side=TOP, pady=5)
+    button_quit.pack(side=TOP, pady=5)
+    
+    text = tk.StringVar()
+    text.set("You have 6 attempts remaining! Good Luck!")
+    output_label = Label(window3, text='Output', font=('Times New Roman Bold', 12), textvariable= text)
+    output_label.pack()
+
 # First Window
 window1 = tk.Tk()
 window1.geometry('600x250')
@@ -257,17 +324,24 @@ ticTacToe_img = Image.open("TicTacToe.png")
 resized = ticTacToe_img.resize((50,50), Image.ANTIALIAS)
 ticTacToe_img_resized = ImageTk.PhotoImage(resized)
 
+math_img = Image.open("MathCalculations.png")
+math_resized = math_img.resize((50,50), Image.ANTIALIAS)
+math_img_resized = ImageTk.PhotoImage(math_resized)
+
+guess_img = Image.open("GuessTheNumber.png")
+guess_resized = guess_img.resize((50,50), Image.ANTIALIAS)
+guess_img_resized = ImageTk.PhotoImage(guess_resized)
+
 label = Label(window1, text='Please select a program to run', font=('Times New Roman Bold', 15))
-label.place(x=165, y=50) 
+label.pack(pady=5) 
 # Window Orientation
-button1 = Button(window1, text='Miles to Kilometers', command= MileConverter)
-button2 = Button(window1, text='Converting Temperature', command= CelsiusConverter)
-button3 = Button(window1, text='Converting Speed', command= SecondsConverter)
-button4 = Button(window1, command= TicTacToe, image=ticTacToe_img_resized)
-button1.place(x=125, y=100)
-button2.place(x=325, y=100)
-button3.place(x=130, y=150)
-button4.place(x=355, y=150)
+math_btn = Button(window1, command= mathCalcs, image=math_img_resized)
+ticTacToe_btn = Button(window1, command=TicTacToe, image=ticTacToe_img_resized)
+guess_btn = Button(window1, command=GuessTheNumber, image=guess_img_resized)
+math_btn.pack(pady=5)
+ticTacToe_btn.pack(pady=5)
+guess_btn.pack(pady=5)
+
 
 
 window1.mainloop()
